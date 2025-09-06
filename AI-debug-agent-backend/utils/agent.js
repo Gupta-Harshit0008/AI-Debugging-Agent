@@ -9,7 +9,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 
 
-exports.searchStackOverflow = async (query, maxResults = 3) => {
+exports.searchStackOverflow = async (query, maxResults = 5) => {
   try {
     const url = `https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=relevance&pagesize=${maxResults}&q=${encodeURIComponent(query)}&site=stackoverflow`;
     const res = await axios.get(url);
@@ -20,7 +20,7 @@ exports.searchStackOverflow = async (query, maxResults = 3) => {
   }
 };
 
-exports.searchGitHub = async (query, maxResults = 3) => {
+exports.searchGitHub = async (query, maxResults = 5) => {
   try {
     const url = `https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=${maxResults}`;
     const res = await axios.get(url, { headers: { "User-Agent": "debug-agent" } });
