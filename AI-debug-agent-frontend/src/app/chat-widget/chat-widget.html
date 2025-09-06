@@ -1,0 +1,43 @@
+<div class="chat-container">
+  <div class="query-section">
+    <h2>AI Debugging Assistant</h2>
+    <textarea
+      [(ngModel)]="query"
+      placeholder="Paste your error or write your question..."
+    ></textarea>
+    <button (click)="submitQuery()" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Submit' }}
+    </button>
+  </div>
+
+  <div class="results-section" *ngIf="results.length > 0 && !loading">
+    <div *ngFor="let res of results" class="result-card">
+      <div class="ai-reply">
+        <strong>AI Suggestion:</strong>
+        <pre>{{ res.reply }}</pre>
+      </div>
+      <div class="sources" *ngIf="res.sources">
+        <div class="source-block" *ngIf="res.sources.stackoverflow.length">
+          <strong>StackOverflow:</strong>
+          <ul>
+            <li *ngFor="let s of res.sources.stackoverflow">
+              <a [href]="s.link" target="_blank">{{ s.title }}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="source-block" *ngIf="res.sources.github.length">
+          <strong>GitHub:</strong>
+          <ul>
+            <li *ngFor="let g of res.sources.github">
+              <a [href]="g.link" target="_blank">{{ g.title }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loader-overlay">
+    <div class="spinner"></div>
+  </div>
+</div>

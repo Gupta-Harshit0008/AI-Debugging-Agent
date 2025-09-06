@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  ai-debug-agent-backend:
+    build: ./ai-debug-agent-backend
+    container_name: ai-debug-agent-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./ai-debug-agent-backend/config.env
+
+  ai-debug-agent-frontend:
+    build: ./ai-debug-agent-frontend
+    container_name: ai-debug-agent-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - ai-debug-agent-backend
